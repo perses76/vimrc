@@ -51,7 +51,7 @@ set nofoldenable
 set foldlevel=2
 
 " import my custom utils for common using
-source ~\vimfiles\my_utils.vim
+" source ~\vimfiles\my_utils.vim
 
 
 filetype plugin indent on
