@@ -1,6 +1,7 @@
 set nocompatible
 let mapleader = ","
 
+
 call plug#begin('C:\Users\Vadim\vimfiles\plugged')
 
 Plug 'easymotion/vim-easymotion'
