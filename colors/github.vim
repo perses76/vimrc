@@ -7,6 +7,7 @@
 "       Thanks to Ryan Heath for an easy list of some of the colours:
 "       http://rpheath.com/posts/356-github-theme-for-syntax-gem
 
+
 hi clear
 
 set background=light
