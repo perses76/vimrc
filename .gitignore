@@ -1,0 +1,7 @@
+*.*~
+*.swp
+after/
+autoload/
+bundle/
+plugin/
+sessions/
