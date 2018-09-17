@@ -2,6 +2,8 @@
 *.swp
 after/
 autoload/
+UltiSnips/
+plugged/
 bundle/
 plugin/
 sessions/

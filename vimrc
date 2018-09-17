@@ -1,19 +1,30 @@
 set nocompatible
+let mapleader = ","
 
-" let g:ycm_python_binary_path = 'python'
-" let g:syntastic_python_pylint_exe = 'python -m pylint'
-" let g:ycm_python_binary_path = 'C:\Users\Vadim\Projects\QuantifiedSkin\webapi\envs\webapi1\Scripts\python.exe'
-" let g:ycm_server_python_interpreter = 'python.exe'
-"
+call plug#begin('C:\Users\Vadim\vimfiles\plugged')
+
+Plug 'easymotion/vim-easymotion'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'vim-syntastic/syntastic'
+Plug 'kien/ctrlp.vim'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+
+call plug#end()
+
+
 let g:ycm_autoclose_preview_window_after_completion = 1
 
-execute pathogen#infect()
+
+syntax enable
 
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
 set autoindent    " always set autoindenting on
 set copyindent    " copy the previous indentation on autoindenting
-set number        " always show line numbers
+set relativenumber        " always show relative line numbers
 set shiftwidth=4  " number of spaces to use for autoindenting
 set shiftround    " use multiple of shiftwidth when indenting with '<' and '>'
 set showmatch     " set show matching parenthesis
@@ -28,13 +39,10 @@ set incsearch     " show search matches as you type
 set encoding=utf-8
 set fileencodings=utf-8
 set laststatus=2
-set statusline=%f\ -\ FileType:\ %y
 
-syntax enable
 set expandtab
 set noswapfile  " no swap files
 set autowriteall " Automatically save file on buffer change
-set relativenumber
 
 set foldmethod=indent   
 set foldnestmax=10
@@ -50,11 +58,6 @@ au FileType yaml setl sw=2 sts=2 et
 au FileType python setl sw=4 sts=4 et
 autocmd FileType python nnoremap <buffer> <C-]> :YcmCompleter GoTo<CR>
 autocmd FileType python nnoremap <buffer> <S-k> :YcmCompleter GetDoc<CR>
-
-nnoremap <Leader>b :BufExplorer<CR>
-nnoremap <Leader>g :e#<CR>
-" nnoremap <Leader>r :call PythonCurrentFile()<CR>
-nnoremap <Leader>r :Pyrun<CR>
 
 nnoremap <Leader>d :YcmCompleter GoToDefinition<CR>
 nnoremap <Leader>D :YcmCompleter GoToDeclaration<CR>
@@ -170,26 +173,6 @@ let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint']
 
-
-" ---------------------------------------------------------------------------------------------
-" Setup cygwin as default shell command (from here: http://vim.wikia.com/wiki/Use_cygwin_shell)
-" ----------------------------------------------------------------------------------------------
-
-" Makes bash open in the working directory
-" let $CHERE_INVOKING=1
-
-" Default path for Cygwin 64-bit, change accordingly
-" Attention C:\cygwin64\bin should be in PATH
-" set shell=\"bash"\
-
-" Without --login, Cygwin won't mount some directories such as /usr/bin/
-" set shellcmdflag=--login\ -c
-
-" Default value is (, but bash needs "
-" set shellxquote=\"
-
-" Paths will use / instead of \
-" set shellslash
 
 " PLIGINS SETTINGS END
 "-----------------------------------------------------------------------------------
