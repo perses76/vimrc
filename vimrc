@@ -11,7 +11,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-syntastic/syntastic'
 Plug 'kien/ctrlp.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+if has('win64')
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --msvc 14' }
+else
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+endif
 
 call plug#end()
 
