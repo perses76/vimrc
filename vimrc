@@ -11,7 +11,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-syntastic/syntastic'
 Plug 'kien/ctrlp.vim'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+if has('win64')
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py --msvc 14' }
+else
+    Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+endif
 
 call plug#end()
 
@@ -61,13 +65,13 @@ au FileType python setl sw=4 sts=4 et
 autocmd FileType python nnoremap <buffer> <C-]> :YcmCompleter GoTo<CR>
 autocmd FileType python nnoremap <buffer> <S-k> :YcmCompleter GetDoc<CR>
 
-nnoremap <Leader>d :YcmCompleter GoToDefinition<CR>
-nnoremap <Leader>D :YcmCompleter GoToDeclaration<CR>
+map <Leader><Leader> <Plug>(easymotion-s)
 nnoremap <F5> :Pyrun<CR>
 
 command! Pyrun execute "wa | ! python run_tests.py test_like_comment.py"
 command! RemoveTrailingWhitespace :%s/\s\+$//e
 command! FormatJson :%!python -m json.tool
+command! Vimrc :tabnew $MYVIMRC
 
 
 
