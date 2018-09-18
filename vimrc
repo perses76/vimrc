@@ -2,7 +2,7 @@ set nocompatible
 let mapleader = ","
 
 
-call plug#begin('C:\Users\Vadim\vimfiles\plugged')
+call plug#begin('~/.vim/plugged')
 
 Plug 'easymotion/vim-easymotion'
 Plug 'SirVer/ultisnips'
@@ -92,8 +92,27 @@ if has("gui_running")
   endif
 endif
 
+
+if &term =~ "xterm"
+  " 256 colors
+  let &t_Co = 256
+  hi CursorLine ctermbg=251
+
+endif
+
 colorscheme github
-hi normal ctermbg=white guibg=white
+
+if &term =~ "xterm\\|rxvt"
+  " use an orange cursor in insert mode
+  let &t_SI = "\<Esc>]12;orange\x7"
+  " use a red cursor otherwise
+  let &t_EI = "\<Esc>]12;red\x7"
+  silent !echo -ne "\033]12;red\007"
+  " reset cursor when vim exits
+  autocmd VimLeave * silent !echo -ne "\033]112\007"
+  " use \003]12;gray\007 for gnome-terminal
+endif
+
 
 " TABLINE BEGIN ----------------------------------------
 if has('gui')
