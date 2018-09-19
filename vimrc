@@ -166,7 +166,8 @@ endif
 " PLUGINS SETTINGS
 
 " YouCompleteMe
-" let g:ycm_python_binary_path = 'C:\Users\Vadim\Projects\QuantifiedSkin\webapi\envs\webapi1\Scripts\python.exe'
+let g:ycm_python_binary_path = 'python'
+let g:ycm_python_interpreter_path = 'python'
 
 " UltiSnips
 let g:UltiSnipsEditSplit="vertical"  " If you want :UltiSnipsEdit to split your window.
