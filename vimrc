@@ -20,8 +20,6 @@ endif
 call plug#end()
 
 
-let g:ycm_autoclose_preview_window_after_completion = 1
-
 
 syntax enable
 
@@ -62,10 +60,9 @@ set foldlevel=2
 filetype plugin indent on
 au FileType yaml setl sw=2 sts=2 et
 au FileType python setl sw=4 sts=4 et
-autocmd FileType python nnoremap <buffer> <C-]> :YcmCompleter GoTo<CR>
+autocmd FileType python nnoremap <buffer> <C-]> :rightbelow vertical YcmCompleter GoTo<CR>
 autocmd FileType python nnoremap <buffer> <S-k> :YcmCompleter GetDoc<CR>
 
-map <Leader><Leader> <Plug>(easymotion-s)
 nnoremap <F5> :Pyrun<CR>
 
 command! Pyrun execute "wa | ! python run_tests.py test_like_comment.py"
@@ -168,6 +165,8 @@ endif
 " YouCompleteMe
 let g:ycm_python_binary_path = 'python'
 let g:ycm_python_interpreter_path = 'python'
+let g:ycm_autoclose_preview_window_after_completion = 1
+let g:ycm_goto_buffer_command = 'split'
 
 " UltiSnips
 let g:UltiSnipsEditSplit="vertical"  " If you want :UltiSnipsEdit to split your window.
@@ -187,6 +186,7 @@ function! OpenNERDTreeAndSync()
 endfunction
 
 nnoremap <Leader>n :call OpenNERDTreeAndSync()<CR>
+map <Leader><Leader> <Plug>(easymotion-s)
 
 " Syntactic
 set statusline+=%#warningmsg#
