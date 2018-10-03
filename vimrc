@@ -5,12 +5,14 @@ let mapleader = ","
 call plug#begin('~/.vim/plugged')
 
 Plug 'easymotion/vim-easymotion'
+
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'vim-syntastic/syntastic'
 Plug 'kien/ctrlp.vim'
+Plug 'michaeljsmith/vim-indent-object'
 if has('win64')
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py --msvc 14' }
 else
@@ -19,7 +21,7 @@ endif
 
 call plug#end()
 
-
+map <Leader><Leader> <Plug>(easymotion-s)
 
 syntax enable
 
@@ -52,10 +54,15 @@ set foldmethod=indent
 set foldnestmax=10
 set nofoldenable
 set foldlevel=2
+set splitright
+set splitbelow
+
+" usetab - if buffer with file existed, then open it, otherwise open new tab
+" newtab - open new tab for quickfix windows.
+" set switchbuf+=usetab,newtab
 
 " import my custom utils for common using
 " source ~\vimfiles\my_utils.vim
-
 
 filetype plugin indent on
 au FileType yaml setl sw=2 sts=2 et
@@ -63,9 +70,7 @@ au FileType python setl sw=4 sts=4 et
 autocmd FileType python nnoremap <buffer> <C-]> :rightbelow vertical YcmCompleter GoTo<CR>
 autocmd FileType python nnoremap <buffer> <S-k> :YcmCompleter GetDoc<CR>
 
-nnoremap <F5> :Pyrun<CR>
 
-command! Pyrun execute "wa | ! python run_tests.py test_like_comment.py"
 command! RemoveTrailingWhitespace :%s/\s\+$//e
 command! FormatJson :%!python -m json.tool
 command! Vimrc :tabnew $MYVIMRC
@@ -186,12 +191,36 @@ function! OpenNERDTreeAndSync()
 endfunction
 
 nnoremap <Leader>n :call OpenNERDTreeAndSync()<CR>
-map <Leader><Leader> <Plug>(easymotion-s)
 
 " Syntactic
-set statusline+=%#warningmsg#
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0?'  '.l:branchname.' ':''
+endfunction
+
+set statusline=
+set statusline+=%#PmenuSel#
+set statusline+=%{StatuslineGit()}
+set statusline+=%#LineNr#
+set statusline+=\ %f
 set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set statusline+=%m\
+set statusline+=%=
+set statusline+=%#CursorColumn#
+set statusline+=\ %y
+set statusline+=\ %{&fileencoding?&fileencoding:&encoding}
+set statusline+=\[%{&fileformat}\]
+set statusline+=\ %p%%
+set statusline+=\ %l/%L:%c
+
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 0
@@ -202,7 +231,7 @@ let g:syntastic_python_checkers = ['pylint']
 
 " PLIGINS SETTINGS END
 "-----------------------------------------------------------------------------------
-if filereadable('.exrc/vimrc')
-	source .exrc/vimrc
+if filereadable('.idea/vimrc')
+	source .idea/vimrc
 endif
 
