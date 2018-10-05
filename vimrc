@@ -229,6 +229,31 @@ let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['pylint']
 
 
+" Last command ---------------------------------
+" Save last command and run it later
+function! LastCommandPop()
+    return g:last_command
+endfunction
+
+function! LastCommandPush(cmd)
+    let g:last_command = a:cmd
+endfunction
+
+function! LastCommandRun()
+    let cmd = LastCommandPop()
+    execute cmd
+endfunction
+
+function! LastCommand(cmd)
+    call LastCommandPush(a:cmd)
+    call LastCommandRun()
+endfunction
+
+nnoremap <Leader>r : call LastCommandRun()<CR>
+inoremap <Leader>r : <ESC> call LastCommandRun()<CR>
+command! -nargs=1 LastCommand call LastCommand(<f-args>)
+
+
 " PLIGINS SETTINGS END
 "-----------------------------------------------------------------------------------
 if filereadable('.idea/vimrc')
