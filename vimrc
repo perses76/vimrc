@@ -18,6 +18,7 @@ if has('win64')
 else
     Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 endif
+Plug 'vim-scripts/indentpython.vim'
 
 call plug#end()
 
