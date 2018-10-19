@@ -22,9 +22,12 @@ Plug 'vim-scripts/indentpython.vim'
 
 call plug#end()
 
+
+let g:EasyMotion_do_mapping = 0
 map <Leader><Leader> <Plug>(easymotion-s)
 
-syntax enable
+
+" syntax enable
 
 set tabstop=4     " a tab is four spaces
 set backspace=indent,eol,start " allow backspacing over everything in insert mode
@@ -65,7 +68,7 @@ set splitbelow
 " import my custom utils for common using
 " source ~\vimfiles\my_utils.vim
 
-filetype plugin indent on
+" filetype plugin indent on
 au FileType yaml setl sw=2 sts=2 et
 au FileType python setl sw=4 sts=4 et
 autocmd FileType python nnoremap <buffer> <C-]> :rightbelow vertical YcmCompleter GoTo<CR>
@@ -75,7 +78,12 @@ autocmd FileType python nnoremap <buffer> <S-k> :YcmCompleter GetDoc<CR>
 command! RemoveTrailingWhitespace :%s/\s\+$//e
 command! FormatJson :%!python -m json.tool
 command! Vimrc :tabnew $MYVIMRC
+command! AssertLen call AssertLen()
 
+function! AssertLen()
+    exec "ay<C-o>"
+    put @a
+endfunction
 
 
 function! PythonCurrentFile()
@@ -108,18 +116,6 @@ if &term =~ "xterm"
 endif
 
 colorscheme github
-
-if &term =~ "xterm\\|rxvt"
-  " use an orange cursor in insert mode
-  let &t_SI = "\<Esc>]12;orange\x7"
-  " use a red cursor otherwise
-  let &t_EI = "\<Esc>]12;red\x7"
-  silent !echo -ne "\033]12;red\007"
-  " reset cursor when vim exits
-  autocmd VimLeave * silent !echo -ne "\033]112\007"
-  " use \003]12;gray\007 for gnome-terminal
-endif
-
 
 " TABLINE BEGIN ----------------------------------------
 if has('gui')
